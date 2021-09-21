@@ -5,11 +5,25 @@
 | Column              | Type     | Options      |
 | ------------------- | -------- | ------------ |
 | name                | string   | null: false  | 
-| email               | string   | null: false  |
+| email               | string   | null: false, unique: true  |
 | encrypted_password  | string   | null: false  |
 | first_name          | string   | null: false  |
 | family_name         | string   | null: false  |
 | first_name_kana     | string   | null: false  |
+| family_name_kana    | string   | null: false  |
+| birth_year          | string   | null: false  |
+| birth_month         | string   | null: false  |
+| birth_day           | string   | null: false  |
+
+### Association
+
+* has_many:items dependent: :destroy
+* belongs_to :address dependent: :destroy
+
+## addressテーブル
+
+| Column              | Type     | Options      |
+| ------------------- | -------- | ------------ |
 | post_code           | string   | null: false  |
 | city                | string   | null: false  |
 | house_number        | string   | null: false  |
@@ -20,92 +34,40 @@
 
 ### Association
 
-* has_many:seller_items, foreign_key: true
-* has_many:buyer_items, foreign_key: true
-* has_one :profile, dependent: :destroy
-* has_one :credit_card, dependent: :destroy
-
-## profiles テーブル
-
-| Column         | Type       | Options                        |
-| -------------- | ---------- | ------------------------------ |
-| introduction   | text       |                                |
-| avatar         | text       |                                |
-| user           | references | null: false, foreign_key: true |
-
-### Association
-
 * belongs_to :user
 
-## credit_cards テーブル
+## item テーブル
 
-| Column      | Type       | Options                         |
-| ----------- | ---------- | ------------------------------- |
-| user_id     | integer    | null: false, foreign_key: true  |
-| customer_id | string     | null: false                     |
-| card_id     | string     | null: false                     |   
-
-### Association
-
-* belongs_to :user
-
-## items テーブル
-
-| Column          | Type         | Options                 |
-| --------------- | ------------ | ----------------------- |
-| name            | string       | null: false             |
-| introduction    | text         | null: false             |
-| price           | integer      | null: false             |
-| brand           | integer      |                         |
-| item_condition  | integer      | null: false             |
-| postage_payer   | integer      | null: false             |
-| preparation_day | integer      | null: false             |
-| postage_type    | integer      | null: false             |
-| category        | integer      | null: false             |
-| trading_status  | integer      | null: false             |
-| seller          | references   | null: false             |
-| buyer           | references   |                         |
+| Column          | Type         | Options                         |
+| --------------- | ------------ | --------------------------------|
+| name            | string       | null: false                     |
+| description     | string       | null: false                     |
+| price           | string       | null: false                     |
+| brand           | integer      |                                 |
+| size            | string       | null: false                     |
+| shipping_cost   | string       | null: false                     |
+| shipping_days   | string       | null: false                     |
+| prefecture_id   | string       | null: false                     |
+| category        | integer      | null: false                     |
+| status          | string       | null: false                     |
+| shipping_id     | integer      | null: false,foreign_key: true   |
+| user_id         | integer      | null: false,foreign_key: true   |
 
 ### Association
 
-* has_many :items_images, dependent: :destroy
-* belongs_to :category
-* belongs_to_active_hash :item_condition
-* belongs_to_active_hash :preparation_day
-* belongs_to_active_hash :postage_type
-* belongs_to_active_hash :postage_payer
-* belongs_to :brand
-* belongs_to :seller,class_name:"User"
-* belongs_to :buyer,class_name:"User"
-
-## brands テーブル
-
-| Column          | Type            | Options           |
-| --------------- | --------------- | ----------------- |
-| name            | string          | null: false       |
-
-### Association 
-
-* has_many :items
-
-## images テーブル
-
-| Column          | Type             | Options           |
-| --------------- | ---------------- | ----------------- |
-| url             | string           | null: false       |
-| item            | references       | null: false       |
-
-### Association
-
-* belongs_to :item
+* belongs_to :category dependent: :destroy
+* belongs_to_hash :item_condition
+* belongs_to_hash :preparation_day
+* belongs_to_hash :postage_type
 
 ## categories テーブル
 
 | Column           | Type            | Options            |
 | ---------------- | --------------- | ------------------ |
 | name             | string          | null: false        |
-| ancesty          | string          |                    |
+| ancesty          | string          | null: false        |
 
 ### Association
 
-* has_many :items
+* has_many :products
+
