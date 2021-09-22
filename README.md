@@ -11,11 +11,12 @@
 | family_name         | string   | null: false  |
 | first_name_kana     | string   | null: false  |
 | family_name_kana    | string   | null: false  |
+| birth_day           | date     | null:false   |
 
 ### Association
 
 * has_many:items dependent: :destroy
-* has_many:categories dependent: :destroy
+* has_many:product_history dependent: :destroy
 
 ## addressテーブル
 
@@ -25,15 +26,13 @@
 | city                | string   | null: false  |
 | house_number        | string   | null: false  |
 | building_name       | string   |              |
-| phone_number        | string   | unique: true |
-| birth_date          | date     | null: false  |
+| phone_number        | string   |              |
 | prefecture_code_id  | integer  | null:false   |
 | user_id             | integer  | null:false, foreign_key:true |
 
 ### Association
 
-* belongs_to :user
-* belongs_to :category
+* belongs_to :product_history
 
 ## items テーブル
 
@@ -42,28 +41,27 @@
 | name            | string       | null: false                     |
 | description     | text         | null: false                     |
 | price           | integer      | null: false                     |
-| brand_id        | integer  | null: false  |
-| seller_id       | integer  | null: false  |
-| buyer_id        | integer  | null: false  |
+| postage_id        | integer  | null: false  |
+| region_id       | integer  | null: false  |
+| shipping_date_id        | integer  | null: false  |
 | category_id	    | integer  | null: false  |
 | item_condition_id  | integer  | null: false  |
-| user_id         | integer  | null: false, foreign_key:true  |
+| user         | references  | null: false, foreign_key:true  |
 
 ### Association
 
 * belongs_to :user 
-* belongs_to :category 
-* belongs_to_active_hash :item_condition
-* belongs_to_active_hash :brand
+* has_one :product_history
 
 ## Product history テーブル
 
 | Colum            | Type       | Options                        |
 | ---------------- |------------|------------------------------- |
-| user_id          | integer    | null: false, foreign_key:true  |
-| item_id          | integer    | null: false, foreign_key:true  |
+| users            | references  | null: false, foreign_key:true  |
+| items            | references  | null: false, foreign_key:true  |
 
 ### Association
 
-* has_one :user
-* has_one :item
+* has_one :address
+* belongs_to :user
+* belongs_to :item
