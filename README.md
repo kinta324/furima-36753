@@ -26,10 +26,10 @@
 | city                | string   | null: false  |
 | house_number        | string   | null: false  |
 | building_name       | string   |              |
-| phone_number        | string   |              |
+| phone_number        | string   | null: false  |
 | prefecture_code_id  | integer  | null:false   |
 | user_id             | integer  | null:false, foreign_key:true |
-
+| product_histories_id | integer | null:false, foreign_key:true |
 ### Association
 
 * belongs_to :product_history
@@ -57,8 +57,8 @@
 
 | Colum            | Type       | Options                        |
 | ---------------- |------------|------------------------------- |
-| users            | references  | null: false, foreign_key:true  |
-| items            | references  | null: false, foreign_key:true  |
+| user            | references  | null: false, foreign_key:true  |
+| items           | references  | null: false, foreign_key:true  |
 
 ### Association
 
