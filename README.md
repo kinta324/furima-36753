@@ -28,7 +28,6 @@
 | building_name       | string   |              |
 | phone_number        | string   | null: false  |
 | prefecture_code_id  | integer  | null:false   |
-| user_id             | integer  | null:false, foreign_key:true |
 | product_histories_id | integer | null:false, foreign_key:true |
 ### Association
 
@@ -58,7 +57,7 @@
 | Colum            | Type       | Options                        |
 | ---------------- |------------|------------------------------- |
 | user            | references  | null: false, foreign_key:true  |
-| items           | references  | null: false, foreign_key:true  |
+| item            | references  | null: false, foreign_key:true  |
 
 ### Association
 
