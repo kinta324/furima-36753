@@ -11,7 +11,6 @@
 | family_name         | string   | null: false  |
 | first_name_kana     | string   | null: false  |
 | family_name_kana    | string   | null: false  |
-| birth_day           | date     | null: false  |
 
 ### Association
 
@@ -28,11 +27,7 @@
 | building_name       | string   |              |
 | phone_number        | string   | unique: true |
 | birth_date          | date     | null: false  |
-| prefecture_code     | integer  |              |
-| family_name         | string   | null:false   |
-| first_name          | string   | null:false   |
-| family_name_kana    | string   | null:false   |
-| first_name_kana     | string   | null:false   |
+| prefecture_code_id  | integer  | null:false   |
 | user_id             | integer  | null:false, foreign_key:true |
 
 ### Association
@@ -47,12 +42,13 @@
 | name            | string       | null: false                     |
 | description     | text         | null: false                     |
 | price           | integer      | null: false                     |
-| brand_id        | references       | null: false, foreign_key: true   |
-| seller_id       | references       | null: false, foreign_key: true  |
-| buyer_id        | references       | null: false, foreign_key: true  |
-| category_id	    | references    | null: false, foreign_key: true  |
-| item_conditions_id  | references    | null: false, foreign_key: true  |
-| size                | string        | null: false                     |
+| brand_id        | integer  | null: false  |
+| seller_id       | integer  | null: false  |
+| buyer_id        | integer  | null: false  |
+| category_id	    | integer  | null: false  |
+| item_condition_id  | integer  | null: false  |
+| user_id         | integer  | null: false, foreign_key:true  |
+
 ### Association
 
 * belongs_to :user 
@@ -60,14 +56,14 @@
 * belongs_to_active_hash :item_condition
 * belongs_to_active_hash :brand
 
-## categories テーブル
+## Product history テーブル
 
-| Column           | Type            | Options            |
-| ---------------- | --------------- | ------------------ |
-| name             | string          | null: false        |
-| ancesty          | string          | null: false        |
+| Colum            | Type       | Options                        |
+| ---------------- |------------|------------------------------- |
+| user_id          | integer    | null: false, foreign_key:true  |
+| item_id          | integer    | null: false, foreign_key:true  |
 
 ### Association
 
-* has_many :items
-
+* has_one :user
+* has_one :item
