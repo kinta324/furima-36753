@@ -83,6 +83,13 @@ RSpec.describe User, type: :model do
       expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
     end
 
+    it "passwordは全角を含むと登録できないこと" do
+      @user.password = 'ＡＢｃ１２３'
+      @user.password_confirmation = 'ＡＢｃ１２３'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is invalid')
+    end
+
     it "first_nameがない場合は登録できないこと" do
       @user = FactoryBot.build(:user, first_name: nil)
       @user.valid?
