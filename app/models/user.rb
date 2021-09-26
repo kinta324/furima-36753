@@ -10,5 +10,5 @@ class User < ApplicationRecord
   validates :family_name, presence: true
   validates :family_name_kana, presence: true
   validates :birth_day, presence: true
-
+  validates :encrypted_password,:password,:password_confirmation,length:{minimum:7},format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/}
 end
