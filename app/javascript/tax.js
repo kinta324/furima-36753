@@ -4,9 +4,9 @@ function tax (){
     const fee = itemPrice.value * 0.1;
     const addTaxPrice = document.getElementById("add-tax-price");
     addTaxPrice.innerHTML = `${fee}`;
-    const SalesProfit = itemPrice.value - fee ;
+    const salesprofit = itemPrice.value - fee ;
     const profit = document.getElementById("profit");
-    profit.innerHTML = `${SalesProfit}`;
+    profit.innerHTML = `${salesprofit}`;
   });
 }
 
