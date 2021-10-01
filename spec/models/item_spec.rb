@@ -93,6 +93,21 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Region can't be blank")
       end
+      it '英字では保存できないこと' do
+        @item.price = "aaa"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it '英数字混合では保存できないこと' do
+        @item.price = "aaa123"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it '10000000以上の値では保存できないこと' do
+        @item.price = 20000000000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+      end
     end
   end
 end
