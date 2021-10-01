@@ -8,6 +8,7 @@ RSpec.describe Item, type: :model do
   describe '商品情報入力' do
     context '商品情報入力がうまくいかない時' do
       it '全ての値が正しく入力されていれば出品できること' do
+        @item = FactoryBot.create(:user)
         expect(@item).to be_valid
       end
     end
@@ -58,12 +59,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが全角数字だと出品できない' do
-        @item.price = "２０００"
+        @item.price = ２０００
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
       it '売価格は、¥300~¥9,999,999の間のみ保存可能であること' do
-        @item.price = '100'
+        @item.price = 100
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end

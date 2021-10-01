@@ -13,7 +13,7 @@ class Item < ApplicationRecord
     validates :region_id, numericality: { other_than: 1 } 
     validates :shipping_date_id, numericality: { other_than: 1 } 
     validates :item_condition_id, numericality: { other_than: 1 } 
-    validates :description, numericality: { other_than: 1 } 
+    validates :description, presence: true 
     validates :image, presence: true
   end
 end
