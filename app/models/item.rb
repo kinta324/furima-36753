@@ -8,12 +8,12 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name, presence: true
     validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
-    validates :category_id, presence: true
-    validates :postage_id, presence: true
-    validates :region_id, presence: true
-    validates :shipping_date_id, presence: true
-    validates :item_condition_id, presence: true
-    validates :description, presence: true
+    validates :category_id, numericality: { other_than: 1 } 
+    validates :postage_id, numericality: { other_than: 1 } 
+    validates :region_id, numericality: { other_than: 1 } 
+    validates :shipping_date_id, numericality: { other_than: 1 } 
+    validates :item_condition_id, numericality: { other_than: 1 } 
+    validates :description, numericality: { other_than: 1 } 
     validates :image, presence: true
   end
 end
