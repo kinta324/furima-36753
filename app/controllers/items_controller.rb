@@ -1,15 +1,18 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only:new
+  before_action :authenticate_user!, only: new
   def index
-    #@item = Item.all
+    @items = Item.all
   end
 
   def new
-    @item = Item.new
+    if user_signed_in?
+      @item = Item.new
+   else
+      redirect_to user_session_path(@item.id)
+   end
   end
 
   def create
-
     @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
