@@ -3,6 +3,10 @@ class Item < ApplicationRecord
 
   belongs_to :user
   belongs_to_active_hash :postage
+  belongs_to_active_hash :category
+  belongs_to_active_hash :region
+  belongs_to_active_hash :shipping_date
+  belongs_to_active_hash :item_condition
   has_one_attached :image
 
   with_options presence: true do
