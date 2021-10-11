@@ -2,12 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
   before do
-    @order_address = FactoryBot.build(:address)
+    @order_address = FactoryBot.build(:user)
   end
   describe '商品情報入力' do
     context '商品情報入力がうまくいかない時' do
       it 'すべての値が正しく入力されていれば購入できること' do
         @order_address = FactoryBot.create(:user)
+        expect(@order_address).to be_valid
+      end
+      it '建物名が空でも登録できる' do
+        @order_address.building_name = ''
         expect(@order_address).to be_valid
       end
     end
@@ -49,6 +53,21 @@ RSpec.describe Address, type: :model do
       end
       it 'phone_numberが数値でなければ保存できないこと' do
         @order_address.phone_number = 'aaaa'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Order must exist")
+      end
+      it 'tokenが空だと保存できないこと' do
+        @order_address.token = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Order must exist")
+      end
+      it 'user_idが空では登録できないこと' do
+        @order_address.user_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Order must exist")
+      end
+      it 'item_idが空では登録できないこと' do
+        @order_address.item_id = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Order must exist")
       end
