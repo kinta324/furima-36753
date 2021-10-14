@@ -7,6 +7,7 @@ class OrderAddress
   with_options presence: true do
     validates :item_id
     validates :user_id
+    validates :product_histories_id
     validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/ }
     validates :city,presence: true
     validates :house_number,presence: true
