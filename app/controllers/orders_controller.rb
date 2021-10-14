@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  #before_action :prevent_url, only: [:index, :create]
-  #before_action :set_item, only: [:index, :create]
+  before_action :prevent_url, only: [:index]
+  before_action :set_item, only: [:index, :create]
 
   def index
+
     @order_address = OrderAddress.new
     @item = Item.find(params[:item_id])
     if current_user == @item.user
@@ -38,13 +39,14 @@ class OrdersController < ApplicationController
     )
   end
 
-  def prevent_url
-    if @item != current_user.id || @item.order_address != nil 
-      redirect_to root_path
-    end
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
-  def set_item
-    @item = Item.find(params[:id])
+  def prevent_url
+    @item = Item.find(params[:item_id])
+    if @item.user_id == current_user.id || @item.order != nil
+      redirect_to root_path
+    end
   end
 end
