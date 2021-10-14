@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_075832) do
     t.string "house_number", null: false
     t.string "building_name"
     t.string "phone_number", null: false
+    t.integer "product_histories_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

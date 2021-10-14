@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  before_action :prevent_url, only: [:index, :create]
-  before_action :set_item, only: [:index, :create]
+  #before_action :prevent_url, only: [:index, :create]
+  #before_action :set_item, only: [:index, :create]
 
   def index
     @order_address = OrderAddress.new
-    @item = Item.find(params[:item_id]) 
+    @item = Item.find(params[:item_id])
     if current_user == @item.user
       redirect_to root_path
     end
